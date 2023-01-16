@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\BbsController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,3 +20,6 @@ Route::get('/', function () {
 });
 
 Route::get('/user', [UserController::class, "index"]);
+
+Route::get('/bbs', [BbsController::class, 'index']);
+Route::post('/bbs', [BbsController::class, 'create']);
