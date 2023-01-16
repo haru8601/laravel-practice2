@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bbs;
 use Illuminate\Http\Request;
 
 class BbsController extends Controller
@@ -9,7 +10,8 @@ class BbsController extends Controller
     //
     public function index()
     {
-        return view('bbs.index');
+        $bbs = Bbs::all();
+        return view('bbs.index', ["bbs" => $bbs]);
     }
 
     public function create(Request $request)
@@ -20,6 +22,8 @@ class BbsController extends Controller
         ]);
         $name = $request->input('name');
         $comment = $request->input('comment');
-        return view('bbs.index')->with(['name' => $name, 'comment' => $comment]);
+        Bbs::insert(["name" => $name, "comment" => $comment]);
+        $bbs = Bbs::all();
+        return view('bbs.index', ["bbs" => $bbs]);
     }
 }

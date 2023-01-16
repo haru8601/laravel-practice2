@@ -18,11 +18,13 @@
     @endif
 
     <!-- 投稿 -->
-    @isset($name, $comment)
-        <h2>{{ $name }}さんの投稿</h2>
-        {{ $comment }}
-        <br>
-        <hr>
+    @isset($bbs)
+        @foreach ($bbs as $row)
+            <h2>{{ $row->name }}さんの投稿</h2>
+            {{ $row->comment }}
+            <br>
+            <hr>
+        @endforeach
     @endisset
 
     <!-- フォーム -->
