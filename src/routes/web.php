@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\BbsController;
-use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,3 +22,10 @@ Route::get('/user', [UserController::class, "index"]);
 
 Route::get('/bbs', [BbsController::class, 'index']);
 Route::post('/bbs', [BbsController::class, 'create']);
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth'])->name('dashboard');
+
+require __DIR__ . '/auth.php';
