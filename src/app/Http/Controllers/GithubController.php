@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Exception;
 use GuzzleHttp\Client;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -28,11 +29,13 @@ class GithubController extends Controller
         /* github apiからリポジトリ一覧を取得 */
         $repoList = Http::withToken($user->token)->get("https://api.github.com/user/repos");
 
+        $appUser = DB::select('select * from public.user where github_id = ?', [$user->user['login']]);
+
         return view('github', [
-            'info' => var_dump($user),
+            'user' => $appUser[0],
             'nickname' => $user->nickname,
             'token' => $user->token,
-            'repos' => array_map(function ($repo) {
+            'repoList' => array_map(function ($repo) {
                 return $repo->name;
             }, json_decode($repoList->getBody()))
         ]);

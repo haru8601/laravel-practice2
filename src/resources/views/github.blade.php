@@ -8,12 +8,17 @@
 </head>
 
 <body>
-    <div>{{ $info }}</div>
+    <form action="/user" method="POST">
+        {{ csrf_field() }}
+        <div>お名前: <input name="name" value="{{ $user->name }}"></div>
+        <div>コメント: <input name="comment" value="{{ $user->comment }}"></div>
+        <input type="submit" value="Confirm">
+    </form>
     <div>ニックネーム: {{ $nickname }}</div>
     <div>トークン: {{ $token }}</div>
     <div>リポジトリ一覧</div>
     <ul>
-        @foreach ($repos as $repo)
+        @foreach ($repoList as $repo)
             <li>{{ $repo }}</li>
         @endforeach
     </ul>
