@@ -8,9 +8,10 @@ use Illuminate\Http\Request;
 class BbsController extends Controller
 {
     //
-    public function index()
+    public function index(Request $request)
     {
         $bbs = Bbs::all();
+        $request->session()->flush();
         return view('bbs.index', ["bbs" => $bbs]);
     }
 
