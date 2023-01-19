@@ -17,27 +17,28 @@
         </ul>
     @endif
 
-    <!-- 投稿 -->
-    @isset($bbs)
-        @foreach ($bbs as $row)
-            <h2>{{ $row->name }}さんの投稿</h2>
-            {{ $row->comment }}
-            <br>
-            <hr>
-        @endforeach
-    @endisset
-
     <!-- フォーム -->
-    <h2>フォーム</h2>
-    <form action="/bbs" method="post">
-        名前:<br>
-        <input name="name">
+    <form action="/bbs" method="POST" enctype="multipart/form-data">
+        <div style="display: flex">
+            @isset($filenameList)
+                @foreach ($filenameList as $filename)
+                    <div>
+                        <img width="300" height="auto" src="{{ asset('storage/' . $filename) }}">
+                    </div>
+                @endforeach
+            @endisset
+        </div>
+
+        <label for="photo">写真を選択:</label>
+        <input type="file" class="form-control" name="file">
         <br>
-        コメント:<br>
+        <hr>
+        {{ csrf_field() }}
+        キャプション:<br>
         <textarea name="comment" rows="4" cols="40"></textarea>
         <br>
         {{ csrf_field() }}
-        <button class="btn btn-success">送信</button>
+        <button class="btn btn-success">投稿</button>
     </form>
 </body>
 

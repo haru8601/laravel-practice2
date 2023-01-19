@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyImageTable3 extends Migration
+class RenameImageToImagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,9 @@ class ModifyImageTable3 extends Migration
      */
     public function up()
     {
-        Schema::dropIfExists('image');
-        Schema::create('image', function (Blueprint $table) {
-            $table->id();
-            $table->string('filename')->unique();
-            $table->integer('bbs_id')->unique();
-            $table->timestamps();
+        Schema::table('image', function (Blueprint $table) {
+            //
+            Schema::rename('image', 'images');
         });
     }
 
@@ -31,6 +28,7 @@ class ModifyImageTable3 extends Migration
     {
         Schema::table('image', function (Blueprint $table) {
             //
+            Schema::rename('images', 'image');
         });
     }
 }

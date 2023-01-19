@@ -5,9 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bbs extends Model
+class Gituser extends Model
 {
     use HasFactory;
-    protected $table = "bbs";
-    protected $fillable = ["id", 'comment', 'user_id', 'created_at', 'updated_at'];
+    protected $fillable = ["id", "github_id", "created_at", "updated_at"];
 }

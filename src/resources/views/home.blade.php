@@ -5,34 +5,33 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>github</title>
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
 <body>
-    @if ($errors->any())
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    @endif
-    <form action="{{ url('upload') }}" method="POST" enctype="multipart/form-data">
-        <div style="display: flex">
-            @isset($filenameList)
-                @foreach ($filenameList as $filename)
-                    <div>
-                        <img width="300" height="auto" src="{{ asset('storage/' . $filename) }}">
-                    </div>
+    <main>
+        @if ($errors->any())
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
                 @endforeach
-            @endisset
-        </div>
+            </ul>
+        @endif
+        <h1 class="text-xl">Home</h1>
 
-        <label for="photo">画像ファイル:</label>
-        <input type="file" class="form-control" name="file">
-        <br>
-        <hr>
-        {{ csrf_field() }}
-        <button class="btn btn-success"> Upload </button>
-    </form>
+        @isset($bbs)
+            @foreach ($bbs as $post)
+                <div class="border rounded">
+                    <p>{{ $post->github_id }}</p>
+                    <div>
+                        <img width="300" height="auto" src="{{ asset('storage/' . basename($post->filename)) }}">
+                    </div>
+                    <p>{{ $post->comment }}</p>
+                </div>
+            @endforeach
+        @endisset
+    </main>
+
 </body>
 
 </html>

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateTable extends Migration
+class CreateImageTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,10 @@ class CreateTable extends Migration
      */
     public function up()
     {
-        //
-        Schema::create('user', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name')->nullable();
-            $table->string('comment')->nullable();
-            $table->string('github_id');
+        Schema::create('image', function (Blueprint $table) {
+            $table->id();
+            $table->string('filename')->unique();
+            $table->integer('bbs_id')->unique();
             $table->timestamps();
         });
     }
@@ -30,7 +28,6 @@ class CreateTable extends Migration
      */
     public function down()
     {
-        //
-        Schema::drop();
+        Schema::dropIfExists('image');
     }
 }

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class ModifyImageTable extends Migration
+class CreateGitusersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,10 @@ class ModifyImageTable extends Migration
      */
     public function up()
     {
-        Schema::table('image', function (Blueprint $table) {
-            //
-            $table->integer('bbs_id')->unique()->after('filename');
+        Schema::create('gitusers', function (Blueprint $table) {
+            $table->id();
+            $table->string('github_id')->unique();
+            $table->timestamps();
         });
     }
 
@@ -26,9 +27,6 @@ class ModifyImageTable extends Migration
      */
     public function down()
     {
-        Schema::table('image', function (Blueprint $table) {
-            //
-            $table->dropColumn('bbs_id');
-        });
+        Schema::dropIfExists('gitusers');
     }
 }
