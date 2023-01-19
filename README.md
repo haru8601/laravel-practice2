@@ -31,6 +31,8 @@ git submodule update --init
 DB データの永続化を防ぐため、<br>
 `/laradock/docker-compose.yml`ファイルから`services.postgers.volumes`プロパティを削除(またはコメントアウト)
 
+<br>
+
 # 起動・停止
 
 ## 起動
@@ -47,16 +49,35 @@ cd $PROJECT_ROOT/laradock
 docker-compose down
 ```
 
+## 再起動
+
+```sh
+cd $PROJECT_ROOT/laradock
+docker-compose restart
+```
+
 # Docker
 
-## アクセス開始
+## docker アクセス開始
 
 ```sh
 cd $PROJECT_ROOT/laradock
 docker-compose exec workspace bash
 ```
 
-## アクセス終了
+## postgres アクセス開始
+
+```sh
+psql -h laradock-postgres-1 -U {ユーザー名} -p 5432
+```
+
+## postgres アクセス終了
+
+```sh
+\q
+```
+
+## docker アクセス終了
 
 ```sh
 exit
