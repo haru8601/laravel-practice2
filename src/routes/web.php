@@ -22,6 +22,7 @@ Route::post('upload', [HomeController::class, 'upload']);
 
 Route::get('/bbs', [BbsController::class, 'index']);
 Route::post('/bbs', [BbsController::class, 'create']);
+Route::get('/bbs/delete/{bbsId}', [BbsController::class, 'delete']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -35,4 +36,6 @@ Route::post('github/issue', [GithubController::class, "createIssue"]);
 Route::get('login/github', [LoginController::class, "redirectToProvider"]);
 Route::get('login/github/callback', [LoginController::class, "handleProviderCallback"]);
 
+/* テスト用 */
 Route::get("/session/flush", [HomeController::class, "sessionFlush"]);
+Route::get("/login/test", [LoginController::class, "test"]);

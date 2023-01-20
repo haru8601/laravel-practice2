@@ -27,21 +27,30 @@ class LoginController extends Controller
      */
     public function handleProviderCallback(Request $request)
     {
-        $user = Socialite::driver('github')->user();
+        $gitUsername = Socialite::driver('github')->user()->user['login'];
 
         /* ユーザーがDBに存在していなければレコード作成 */
         $nowTime = date("Y/m/d H:i:s");
-        $appUser = Gituser::where("github_id", $user->user['login'])->first();
-        $userId = -1;
-        if (empty($appUser)) {
-            $userId = Gituser::insertGetId(["github_id" => $user->user['login'], "created_at" => $nowTime, "updated_at" => $nowTime]);
-        } else {
-            $userId = $appUser->id;
+        $appUserId = Gituser::select("id")->where("github_id", $gitUsername)->first();
+        if (empty($appUserId)) {
+            Gituser::insert(["github_id" => $gitUsername, "created_at" => $nowTime, "updated_at" => $nowTime]);
         }
 
-        $request->session()->put('github_user', $user);
-        $request->session()->put('user_id', $userId);
+        $request->session()->put('git_username', $gitUsername);
 
         return redirect('/github');
+    }
+
+    public function test(Request $request)
+    {
+        $gitUsername = "test1";
+        $nowTime = date("Y/m/d H:i:s");
+        $appUserId = Gituser::select('id')->where("github_id", $gitUsername)->first();
+        if (empty($appUserId)) {
+            $appUserId = Gituser::insertGetId(["github_id" => $gitUsername, "created_at" => $nowTime, "updated_at" => $nowTime]);
+        }
+        $request->session()->put('git_username', $gitUsername);
+        $request->session()->put('user_id', $appUserId);
+        return redirect("/");
     }
 }

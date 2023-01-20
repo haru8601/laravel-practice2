@@ -14,10 +14,10 @@ class GithubController extends Controller
     public function top(Request $request)
     {
         /* セッションからgithubユーザー取得 */
-        $user = $request->session()->get('github_user', null);
+        $gitUsername = $request->session()->get('git_username', null);
 
         /* なければログイン処理 */
-        if ($user == null) {
+        if ($gitUsername == null) {
             return redirect('login/github');
         }
         return redirect("/");

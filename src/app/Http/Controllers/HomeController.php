@@ -5,21 +5,21 @@ namespace App\Http\Controllers;
 use App\Models\Bbs;
 use Illuminate\Http\Request;
 
-
 class HomeController extends Controller
 {
     /**
-     * 初期表示画面
-     * @return \Illuminate\Contracts\View\View|mixed
+     * 初期画面表示
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index(Request $request)
     {
-        $user = $request->session()->get('github_user', null);
-        if ($user == null) {
+        $gitUsername = $request->session()->get('git_username', null);
+        if ($gitUsername == null) {
             return view('welcome');
         }
-        $bbs =  Bbs::select("comment", "gitusers.github_id", "images.filename")->join("images", "images.bbs_id", "=", "bbs.id")->join("gitusers", "gitusers.id", "=", "bbs.user_id")->get();
-        return view('home')->with('bbs', $bbs);
+        $bbs = Bbs::select("bbs.id", "bbs.comment", "gitusers.github_id", "images.filename")->join("images", "images.bbs_id", "=", "bbs.id")->join("gitusers", "gitusers.id", "=", "bbs.user_id")->get();
+        return view('home')->with('bbs', $bbs)->with('gitUsername', $gitUsername);
     }
 
     public function sessionFlush(Request $request)

@@ -747,6 +747,10 @@ select {
 .h-16 {
   height: 4rem;
 }
+.h-fit {
+  height: -moz-fit-content;
+  height: fit-content;
+}
 .h-20 {
   height: 5rem;
 }
@@ -942,9 +946,9 @@ select {
   --tw-bg-opacity: 1;
   background-color: rgb(243 244 246 / var(--tw-bg-opacity));
 }
-.bg-rose-300 {
+.bg-rose-500 {
   --tw-bg-opacity: 1;
-  background-color: rgb(253 164 175 / var(--tw-bg-opacity));
+  background-color: rgb(244 63 94 / var(--tw-bg-opacity));
 }
 .bg-yellow-300 {
   --tw-bg-opacity: 1;
@@ -1256,9 +1260,6 @@ select {
 .file\:text-violet-700::file-selector-button {
   --tw-text-opacity: 1;
   color: rgb(109 40 217 / var(--tw-text-opacity));
-}
-.hover\:border:hover {
-  border-width: 1px;
 }
 .hover\:border-b:hover {
   border-bottom-width: 1px;
