@@ -27,7 +27,8 @@
                         </div>
                         <div class="m-3 flex justify-between">
                             <div>{!! nl2br($post['comment']) !!}</div>
-                            <a class="h-fit inline-block px-4 py-2 bg-yellow-300 rounded" href="/">いいね</a>
+                            <a class="{{ 'h-fit inline-block px-4 py-2 border border-3 border-yellow-300 rounded ' . (isset($post['likeId']) ? 'bg-yellow-300 ' : '') }}"
+                                href="{{ '/bbs/like/' . $post['id'] }}">いいね</a>
                         </div>
                         <div class="text-right">
                             <a class="inline-block p-1 text-sm hover:border-b hover:border-black"

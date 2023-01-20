@@ -23,6 +23,7 @@ Route::post('upload', [HomeController::class, 'upload']);
 Route::get('/bbs', [BbsController::class, 'index']);
 Route::post('/bbs', [BbsController::class, 'create']);
 Route::get('/bbs/delete/{bbsId}', [BbsController::class, 'delete']);
+Route::get('/bbs/like/{bbsId}', [BbsController::class, 'like']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

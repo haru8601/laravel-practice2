@@ -18,7 +18,7 @@ class HomeController extends Controller
         if ($gitUsername == null) {
             return view('welcome');
         }
-        $bbs = Bbs::select("bbs.id", "bbs.comment", "gitusers.github_id", "images.filename")->join("images", "images.bbs_id", "=", "bbs.id")->join("gitusers", "gitusers.id", "=", "bbs.user_id")->get();
+        $bbs = Bbs::select("bbs.id", "bbs.comment", "gitusers.github_id", "images.filename", "likes.id as likeId")->join("images", "images.bbs_id", "=", "bbs.id")->join("gitusers", "gitusers.id", "=", "bbs.user_id")->leftjoin("likes", "likes.bbs_id", "=", "bbs.id")->get();
         return view('home')->with('bbs', $bbs)->with('gitUsername', $gitUsername);
     }
 
