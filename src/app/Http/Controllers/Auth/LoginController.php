@@ -38,7 +38,7 @@ class LoginController extends Controller
 
         $request->session()->put('git_username', $gitUsername);
 
-        return redirect('/github');
+        return redirect('/');
     }
 
     public function test(Request $request)
