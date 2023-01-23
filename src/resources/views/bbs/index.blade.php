@@ -40,7 +40,7 @@
             <textarea name="comment" rows="4" cols="40" placeholder="旅行に行ったよ"></textarea>
             <br>
             {{ csrf_field() }}
-            <button class="btn btn-success mt-4 px-4 py-2 bg-sky-300 text-sky-700 rounded">投稿</button>
+            <button class="btn btn-success mt-4 px-4 py-2 bg-sky-300 text-sky-700 rounded hover:bg-sky-400">投稿</button>
         </form>
     </div>
 </x-app-layout>

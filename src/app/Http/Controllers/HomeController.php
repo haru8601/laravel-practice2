@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Bbs;
+use App\Models\Like;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -18,7 +19,18 @@ class HomeController extends Controller
         if ($gitUsername == null) {
             return view('welcome');
         }
-        $bbs = Bbs::select("bbs.id", "bbs.comment", "gitusers.github_id", "images.filename", "likes.id as likeId")->join("images", "images.bbs_id", "=", "bbs.id")->join("gitusers", "gitusers.id", "=", "bbs.user_id")->leftjoin("likes", "likes.bbs_id", "=", "bbs.id")->get();
+        /** 自分がいいね押した記事一覧(サブクエリ用) */
+        $likeUser = Like::select("likes.id as like_id", "likes.bbs_id")
+            ->join("gitusers", "gitusers.id", "=", "likes.like_user_id")
+            ->where(["gitusers.github_id" => $gitUsername]);
+        $bbs = Bbs::select("bbs.id", "bbs.comment", "gitusers.github_id", "images.filename", "likeUser.like_id")
+            ->join("images", "images.bbs_id", "=", "bbs.id")
+            ->join("gitusers", "gitusers.id", "=", "bbs.user_id")
+            ->leftjoinSub($likeUser, "likeUser", function ($join) {
+                $join->on("bbs.id", "=", "likeUser.bbs_id");
+            })
+            ->orderBy("bbs.id")
+            ->get();
         return view('home')->with('bbs', $bbs)->with('gitUsername', $gitUsername);
     }
 
