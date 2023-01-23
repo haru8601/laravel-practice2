@@ -82,3 +82,15 @@ psql -h laradock-postgres-1 -U {ユーザー名} -p 5432
 ```sh
 exit
 ```
+
+# URL 設計
+
+| URL                    | Method | ページ名                    |
+| ---------------------- | ------ | --------------------------- |
+| /                      | GET    | ホーム                      |
+| /bbs                   | GET    | 投稿画面                    |
+| /bbs                   | POST   | 投稿                        |
+| /bbs/like/${bbs_id}    | GET    | 投稿いいね                  |
+| /bbs/delete/${商品 ID} | GET    | 投稿削除                    |
+| /login/github          | GET    | github ログイン             |
+| /login/github/callback | GET    | github ログインコールバック |
